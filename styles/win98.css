@@ -4,21 +4,54 @@ body {
   user-select: none;
 }
 
+#click-to-start {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#click-to-start .cts-box {
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #000;
+}
+
 #boot-screen {
   position: fixed; z-index: 10000; top:0; left:0; width:100vw; height:100vh;
   background: black;
   display: flex; align-items: center; justify-content: center;
 }
 
-#boot-logo img { width: 400px; image-rendering: pixelated; margin-bottom: 8px; }
+#boot-logo {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#boot-logo img {
+  width: 100vw;
+  height: 1000vh;         /* adjust: 60–75vh looks nice */
+  object-fit: contain;  /* use "cover" if you want it to crop and fill */
+  margin: 0 0 18px 0;
+}
 #boot-progress { background:#808080; width:270px; height:18px; border:2px solid #fff; margin:16px auto 0; }
 #boot-progress div { height:100%; width:0%; background:limegreen; transition:width 2s; }
 
 /* Allow desktop content (like icons) to not get clipped */
 #desktop {
-  min-height: 100vh;
-  width: 100vw;
-  background:  url('../assets/clouds.jpg') center center/cover no-repeat fixed;
+  min-height: 1000vh;
+  width: 1000vw;
+  background:  url('../assets/clouds.png') center center/cover no-repeat fixed;
   position: relative;
   overflow-x: visible;   /* changed from hidden */
   overflow-y: hidden;    /* keep if you want */
@@ -156,13 +189,101 @@ position: relative;
   box-shadow: none;      /* no modern shadow */
 }
 #start-menu {
-  position: absolute; left: 12px; bottom: 52px; width: 242px;
-  background: #f0f0f0;
-  border: 2.5px outset #fff;
-  box-shadow: 2px 2px 0 #888;
-  font-size: 15px;
-  z-index: 102;
-  font-family: inherit;
+  position: fixed;
+  left: 6px;
+  bottom: 42px;
+  width: 255px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  box-shadow: 2px 2px 0 #0006;
+  z-index: 1000;
+  padding: 0;
+  font-size: 13px;
+}
+
+.start98 {
+  display: flex;
+}
+
+.start98-sidebar {
+  width: 28px;
+  background: #000080;
+  position: relative;
+}
+
+.start98-sidebar-text {
+  position: absolute;
+  left: 50%;
+  bottom: 81px;
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin: center;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.start98-main {
+  flex: 1;
+  padding: 2px;
+}
+
+.start98-item {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  cursor: default;
+  position: relative;
+  user-select: none;
+  background: transparent;
+}
+
+.start98-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.start98-ico {
+  width: 20px;
+  height: 20px;
+  image-rendering: pixelated;
+}
+
+.start98-arrow {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.start98-sep {
+  height: 1px;
+  background: #808080;
+  margin: 3px 2px;
+  border-bottom: 1px solid #fff;
+}
+
+/* submenus */
+.start98-submenu {
+  position: absolute;
+  left: 100%;
+  top: -2px;
+  width: 210px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  box-shadow: 2px 2px 0 #0006;
+  display: none;
+  padding: 2px;
+  color: #000;
+}
+
+.start98-item:hover > .start98-submenu {
+  display: block;
+}
+
+.start98-submenu .start98-item:hover {
+  background: #000080;
+  color: #fff;
 }
 .start-menu-header {
   background: linear-gradient(90deg, #003399 75%, #c0c0c0);
