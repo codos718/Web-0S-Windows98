@@ -1,0 +1,298 @@
+body {
+  font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif;
+  margin: 0;
+  user-select: none;
+}
+
+#boot-screen {
+  position: fixed; z-index: 10000; top:0; left:0; width:100vw; height:100vh;
+  background: black;
+  display: flex; align-items: center; justify-content: center;
+}
+
+#boot-logo img { width: 400px; image-rendering: pixelated; margin-bottom: 8px; }
+#boot-progress { background:#808080; width:270px; height:18px; border:2px solid #fff; margin:16px auto 0; }
+#boot-progress div { height:100%; width:0%; background:limegreen; transition:width 2s; }
+
+/* Allow desktop content (like icons) to not get clipped */
+#desktop {
+  min-height: 100vh;
+  width: 100vw;
+  background:  url('../assets/clouds.jpg') center center/cover no-repeat fixed;
+  position: relative;
+  overflow-x: visible;   /* changed from hidden */
+  overflow-y: hidden;    /* keep if you want */
+}
+
+/* Make icon column wider so big icons don't get cut */
+#desktop-icons {
+  width: 170px;          /* was 120px */
+}
+
+.desktop-icon {
+  width: 100px;
+  min-height: 78px;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border: none;
+  background: none;
+  border-radius: 0;
+  user-select: none;
+}
+
+.desktop-icon img {
+  width: 40px;
+  height: 40px;
+  max-width: 40px;
+  max-height: 35px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.icon-img-wrap {
+position: relative; 
+  width: 40px;
+   height: 40px; 
+}
+
+.icon-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.shortcut-arrow {
+  position: absolute;
+  left: 0px;
+  bottom: 5px;     /* forces it to the LOWER part */
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+
+
+/* Windows 98 label style */
+.desktop-icon span {
+  display: block;
+  margin-top: 6px;
+  padding: 2px 6px;  /* optional: tighter label box */
+  font-size: 10px; /*smaller app nameslabels */
+  line-height: 1.1; /* optional: tighter lines */
+  color: #fff;
+  background: #018184;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
+  text-align: center;
+  min-width: 0;
+  max-width: 110px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.desktop-icon.selected span {
+ 
+  outline-offset: -2px;
+  background: #0169a4;
+}
+ 
+
+
+#taskbar {
+  position: fixed; bottom: 0; left: 0; width: 100vw; height: 38px;
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  box-shadow: 0 0 0 2px #808080;
+  display: flex; align-items: center;
+  z-index: 100;
+}
+#start-btn {
+  margin-left: 12px; background: #c0c0c0;
+  border: 2px outset #fff;
+  height: 32px; width: 100px;
+  display: flex; align-items: center; gap: 8px; 
+  font-family: inherit; font-size: 16px; font-weight: bold; color: black;
+ 
+}
+#start-btn img { width: 20px; height: 20px; margin-left: 5px;}
+#taskbar-programs {
+  display: flex; gap: 6px; margin-left: 12px; flex: 1;
+}
+.taskbar-tab {
+  background: #e0e0e0;
+  border: 2px outset #fff;
+  min-width: 90px; height: 30px;
+  display: flex; align-items: center; gap: 6px; padding: 0 8px;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.taskbar-tab.active {
+  background: #003399; color: #fff;
+}
+#taskbar-tray {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+#taskbar-time {
+  font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif;
+  font-size: 12px;
+  color: #000;
+
+  background: #c0c0c0;
+
+  /* Win98 tray inset look */
+  border: 2px inset #fff;
+  padding: 3px 8px;
+
+  border-radius: 0;      /* remove modern rounded corners */
+  box-shadow: none;      /* no modern shadow */
+}
+#start-menu {
+  position: absolute; left: 12px; bottom: 52px; width: 242px;
+  background: #f0f0f0;
+  border: 2.5px outset #fff;
+  box-shadow: 2px 2px 0 #888;
+  font-size: 15px;
+  z-index: 102;
+  font-family: inherit;
+}
+.start-menu-header {
+  background: linear-gradient(90deg, #003399 75%, #c0c0c0);
+  color: white; font-weight: bold;
+  padding: 7px 0 8px 18px;
+  font-size: 19px;
+  border-bottom: 1px solid #c0c0c0;
+}
+.start-menu-section { padding: 11px; }
+.start-menu-item {
+  cursor: pointer; padding: 3px 0 3px 24px; margin-bottom: 2px;
+  position: relative;
+}
+.start-menu-item.programs:hover .start-menu-submenu,
+.start-menu-item:hover { background: #c0c0c0; }
+.start-menu-submenu {
+  position: absolute; left: 210px;
+  top: 0;
+  background: #f0f0f0;
+  border: 2px outset #fff;
+  display: none;
+  width: 175px;
+  box-shadow: 0 2px 8px #242;
+}
+.start-menu-item.programs:hover .start-menu-submenu { display: block; }
+.start-menu-separator {
+  width: 90%; margin: 7px 0 7px 12px; border-top: 1px solid #c0c0c0;
+}
+
+#shutdown-screen, #turnoff-screen {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; color: #fff;
+  display: flex; align-items: center; justify-content: center; z-index: 99999; font-size: 30px;
+  font-family: inherit;
+}
+.shutdown-dialog { color:#222; background:#e0e0e0; border:3px solid #888; border-radius:6px; padding:24px 30px;}
+.shutdown-dialog button { background:#ccc; border:2px outset #fff; font-family:inherit; font-size:18px; margin:0 8px; cursor:pointer;}
+
+/* ---- WINDOW STYLES (missing) ---- */
+#windows {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: calc(100vh - 42px); /* leave room for taskbar */
+  z-index: 50;
+  pointer-events: none; /* windows will re-enable pointer events */
+}
+
+.win98-window {
+  position: absolute;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  box-shadow: 2px 2px 0 #0006;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.win98-window.active {
+  outline: 1px dotted #000;
+  outline-offset: -3px;
+}
+
+.win98-titlebar {
+  height: 17px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  color: #fff;
+  font-weight: bold;
+  user-select: none;
+  cursor: default;
+}
+
+.win98-window.active .win98-titlebar {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+}
+
+.fake-icon-title {
+  width: 18px;
+  height: 18px;
+  image-rendering: pixelated;
+}
+
+.win98-titlebar span {
+  flex: 1;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.win98-titlebar-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.win98-titlebar-btn {
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  line-height: 18px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.win98-titlebar-btn:active {
+  border: 2px inset #fff;
+}
+
+.win98-window-content {
+  background: #fff;
+  border: 2px inset #fff;
+  margin: 6px;
+  flex: 1;
+  overflow: auto;
+  padding: 6px;
+  color: #000;
+  font-size: 13px;
+}
+
+.win98-window-content textarea {
+  border: none;
+  outline: none;
+  font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+}
+

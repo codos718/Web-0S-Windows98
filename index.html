@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows 98 in the Browser</title>
+  <link rel="stylesheet" href="styles/win98.css">
+  <link rel="icon" href="assets/win98.ico" type="image/x-icon">
+</head>
+<body>
+  <!-- BOOT SCREEN -->
+  <div id="boot-screen">
+    <div id="boot-logo">
+      <img src="assets/win98logo.png" alt="Windows 98 Logo">
+      <div id="boot-progress"><div></div></div>
+    </div>
+  </div>
+
+  <!-- DESKTOP & TASKBAR -->
+  <div id="desktop" style="display:none;">
+    <div id="desktop-icons"></div>
+    <div id="taskbar">
+      <button id="start-btn">
+        <img src="assets/start.png" alt="Start">
+        <span>Start</span>
+      </button>
+      <div id="taskbar-programs"></div>
+      <div id="taskbar-tray">
+        <span id="taskbar-time"></span>
+      </div>
+    </div>
+    <div id="start-menu" style="display:none;">
+      <!-- Start menu HTML filled by JS -->
+    </div>
+    <div id="windows"></div>
+    <audio id="boot-audio" src="assets/win98_startup.wav"></audio>
+  </div>
+
+  <!-- SHUTDOWN/RESTART/SAFE TO TURN OFF -->
+  <div id="shutdown-screen" style="display:none;">
+    <div class="shutdown-dialog">
+      <h2>Shut Down Windows</h2>
+      <p>What do you want to do?</p>
+      <button id="shutdown-confirm">Shut down</button>
+      <button id="restart-confirm">Restart</button>
+      <button id="cancel-shutdown">Cancel</button>
+    </div>
+  </div>
+  <div id="turnoff-screen" style="display:none;">
+    <div>It is now safe to turn off your computer.</div>
+  </div>
+  <script src="js/desktop.js"></script>
+  <!-- App modules loaded as needed in JS -->
+</body>
+</html>
